@@ -1,0 +1,131 @@
+<html>
+<head>
+    <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-firestore.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .topnav {
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        .topnav a {
+            float: left;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .topnav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .autocomplete {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .autocomplete-items {
+            position: absolute;
+            border: 1px solid #d4d4d4;
+            border-bottom: none;
+            border-top: none;
+            z-index: 99;
+            /*position the autocomplete items to be the same width as the container:*/
+            top: 100%;
+            left: 0;
+            right: 0;
+        }
+
+        .autocomplete-items div {
+            padding: 10px;
+            cursor: pointer;
+            background-color: #fff;
+            border-bottom: 1px solid #d4d4d4;
+        }
+
+        /*when hovering an item:*/
+        .autocomplete-items div:hover {
+            background-color: #e9e9e9;
+        }
+
+        /*when navigating through the items using the arrow keys:*/
+        .autocomplete-active {
+            background-color: DodgerBlue !important;
+            color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="topnav">
+        <a class="HeroPage.html" href="./../HeroPage/HeroPageView.html">Home</a>
+    </div>
+    
+    <div class="s">
+        <form id="searchbar">
+            <input type="text" name="content" placeholder="Search Keywords">
+            <button id="go">Go</button>
+        </form>
+    </div>
+    
+    <!--Search form to search car by attribute-->
+    <div class="searchBy">
+        <form id="search-car-form" autocomplete="off">
+            <div class="autocomplete">
+                <input id="make" type="text" name="make" placeholder="Enter Manufacturer">
+            </div>
+            <div class="autocomplete">
+                <input id="model" type="text" name="model" placeholder="Enter Model">
+            </div>
+            <input type="text" name="year" placeholder="Enter Year">
+            <div class="autocomplete">
+                <input id="body" type="text" name="body" placeholder="Enter Body Type">
+            </div>
+            <input type="text" name="price" placeholder="Enter Price">
+            <input type="text" name="mileage" placeholder="Enter Mileage">
+            <div class="autocomplete">
+                <input id="interior_color" type="text" name="interior_color" placeholder="Enter Interior Color">
+            </div>
+            <div class="autocomplete">
+                <input id="exterior_color" type="text" name="exterior_color" placeholder="Enter Exterior Color">
+            </div>
+            <div class="autocomplete">
+                <input id="used" type="text" name="used" placeholder="Enter Vehicle Condition">
+            </div>
+            <button class="search">Search</button>
+        </form>
+    </div>
+
+    <!--View of inventory/search results-->
+    <div class="content">
+        <ul id="vehicle-list"></ul>
+    </div>
+
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyDQqdrV_f6x2EUmx8IXoQJLEH3SHFFLj-w",
+            authDomain: "icarshop-e7966.firebaseapp.com",
+            databaseURL: "https://icarshop-e7966.firebaseio.com",
+            projectId: "icarshop-e7966",
+            storageBucket: "icarshop-e7966.appspot.com",
+            messagingSenderId: "685247995631"
+        };
+        firebase.initializeApp(config);
+        const db = firebase.firestore();
+        db.settings({ timestampsInSnapshots: true })
+    </script>
+    <script src="result.js"></script>
+</body>
+
+</html>

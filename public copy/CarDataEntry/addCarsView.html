@@ -1,0 +1,102 @@
+<html>
+
+<head>
+  <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-firestore.js"></script>
+  <link rel="stylesheet" href="addCarsStyle.css">
+</head>
+
+<body>
+
+  <form id="add-car-form">
+
+    <label for="vin">Vehicle Identification Number</label>
+    <input type="text" id="vin" name="vin" placeholder="Enter Vin...">
+
+    <label for="make">Make</label>
+    <input type="text" id="make" name="make" placeholder="Enter Make...">
+
+    <label for="model">Model</label>
+    <input type="text" id="model" name="model" placeholder="Enter Model...">
+
+    <label for="year">Year</label>
+    <input type="text" id="year" name="year" placeholder="Enter Year...">
+
+    <label for="body_type">Body Type</label>
+    <input type="text" id="body_type" name="body_type" placeholder="Enter Body Type...">
+
+    <label for="condition">Condition</label>
+    <select id="condition" name="condition">
+      <option value="New">New</option>
+      <option value="Used">Used</option>
+    </select>
+
+    <label for="price">Price</label>
+    <input type="text" id="price" name="price" placeholder="Enter Price...">
+
+    <label for="mileage">Mileage</label>
+    <input type="text" id="mileage" name="mileage" placeholder="Enter Mileage...">
+
+    <label for="interior_color">Interior Color</label>
+    <input type="text" id="interior_color" name="interior_color" placeholder="Enter Interior Color...">
+
+    <label for="exterior_color">Exterior Color</label>
+    <input type="text" id="exterior_color" name="exterior_color" placeholder="Enter Exterior Color...">
+
+    <body>
+      <progress value="0" max="100" id="uploader">0%</progress>
+      <input type="file" value="upload" id="fileButton" />
+      <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
+      <script>
+        //Get elements
+        var uploader = document.getElementById('uploader');
+        var uploader = document.getElementById('fileButton');
+        // Listen for file selection
+        fileButton.addEventListener('change', function (e) {
+          // get file
+          var file = e.target.files[0];
+          //Create A storage ref
+          var storageRef = firebase.storage().ref('vehicle_images/' + file.name);
+          //upload file
+          var task = storageRef.put(file);
+          // Update Progress Bar
+          task.on('state_changed',
+
+            function progress(snapshot) {
+              var percentage = (snapshot.bytesTransferred /
+                snapshot.totalBytes) * 100;
+              uploader.value = percentage;
+            },
+
+            function error(err) {
+            },
+
+            function complete() {
+            }
+          );
+        })
+      </script>
+
+    </body>
+    <button type="submit" value="Submit" name="submit">Submit</button>
+  </form>
+
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyDQqdrV_f6x2EUmx8IXoQJLEH3SHFFLj-w",
+      authDomain: "icarshop-e7966.firebaseapp.com",
+      databaseURL: "https://icarshop-e7966.firebaseio.com",
+      projectId: "icarshop-e7966",
+      storageBucket: "icarshop-e7966.appspot.com",
+      messagingSenderId: "685247995631"
+    };
+    firebase.initializeApp(config);
+    const db = firebase.firestore();
+    db.settings({ timestampsInSnapshots: true })
+  </script>
+  <script src="CarApp.js"></script>
+
+</body>
+
+</html>
